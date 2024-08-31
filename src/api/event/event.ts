@@ -57,7 +57,6 @@ export const apiDeleteEvent = async <T>(id: string): Promise<APIResponse<T>> => 
 export const apiGetEventInfo = async <T>(): Promise<APIResponse<T>> => {
   try {
     const response = await apiClient.get(`/events/info`)
-    console.log("AQUIIII, ", response)
     const apiResponse: APIResponse = response.data
     return apiResponse
   } catch (error) {

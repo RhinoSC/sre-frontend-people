@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-row items-center justify-between gap-2 w-full h-full">
-    <div class="w-1/3 h-full flex flex-row justify-start items-start">
+  <div class="flex flex-row items-center justify-between w-full h-full gap-2">
+    <div class="flex flex-row items-start justify-start w-1/3 h-full">
       <img src="/src/assets/SRE-X_color.png" alt="" class="object-contain w-1/3 h-full">
     </div>
     <div class="flex flex-row items-center justify-between flex-grow w-1/3 text-xl">
@@ -11,7 +11,7 @@
         <RouterLink to="/prizes">Prizes</RouterLink>
       </div>
       <div>
-        <RouterLink to="/donate" class="bg-violet-600 py-1 px-2 rounded-lg font-bold">DONATE</RouterLink>
+        <RouterLink to="/donate" class="px-2 py-1 font-bold rounded-lg bg-violet-600">DONATE</RouterLink>
       </div>
       <div>
         <RouterLink to="/bids">Bids</RouterLink>
@@ -24,6 +24,7 @@
       <div class="flex flex-row items-center justify-center">
         <h1> {{ localSelectedEvent.name }}</h1>
         <ThemeToggle />
+        <LanguageSwitcher></LanguageSwitcher>
       </div>
     </div>
   </div>
@@ -32,6 +33,7 @@
 <script setup lang="ts">
 import type { MyEvent } from '@/types/event';
 import ThemeToggle from './ThemeToggle.vue';
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
 import { onMounted, ref, watch } from 'vue';
 import { useEventStore } from '@/stores/useEventStore'
 import { storeToRefs } from 'pinia';
