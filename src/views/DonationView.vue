@@ -1,15 +1,9 @@
 <template>
   <div class="flex flex-col items-center justify-center gap-6">
-    <div class="">
+    <div>
       <div class="flex flex-col items-center justify-center gap-6">
         <h1 class="text-4xl font-bold text-center text-violet-600">Donations</h1>
         <p class="text-xl">Total donations: {{ donations?.length }}</p>
-        <RouterLink class="h-12 text-center w-60" to="/donations/new">
-          <div
-            class="py-1 border rounded-lg dark:bg-gray-dark-300 bg-gray-light-200 dark:border-violet-600 dark:hover:bg-gray-light-400 dark:active:bg-gray-dark-100 border-gray-dark-100 hover:bg-gray-light-300 active:bg-gray-dark-100">
-            Donate
-          </div>
-        </RouterLink>
       </div>
     </div>
     <div class="flex flex-col items-center justify-center gap-6">
@@ -20,28 +14,16 @@
       <table class="w-full text-left table-auto rtl:text-right">
         <thead class="dark:bg-gray-dark-300 bg-gray-light-300">
           <tr>
-            <th class="px-6 py-3">
-              Email
-            </th>
-            <th class="px-6 py-3">
-              Name
-            </th>
-            <th class="px-6 py-3">
-              Amount
-            </th>
-            <th class="px-6 py-3">
-              Description
-            </th>
-            <th class="px-6 py-3">
-              To bid?
-            </th>
-            <th class="px-6 py-3">
-              Time
-            </th>
+            <th class="px-6 py-3">Email</th>
+            <th class="px-6 py-3">Name</th>
+            <th class="px-6 py-3">Amount</th>
+            <th class="px-6 py-3">Description</th>
+            <th class="px-6 py-3">To bid?</th>
+            <th class="px-6 py-3">Time</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="donation in filteredDonations"
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="donation in paginatedDonations"
             :key="donation.id">
             <td class="px-6 py-4">{{ donation.email }}</td>
             <td class="px-6 py-4">{{ donation.name }}</td>
@@ -59,13 +41,26 @@
           </tr>
         </tbody>
       </table>
+
+      <!-- Paginación -->
+      <div class="flex items-center justify-center mt-4 space-x-4">
+        <button @click="prevPage" :disabled="currentPage === 1"
+          class="px-4 py-2 text-white rounded bg-violet-600 disabled:opacity-50">
+          Prev
+        </button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button @click="nextPage" :disabled="currentPage === totalPages"
+          class="px-4 py-2 text-white rounded bg-violet-600 disabled:opacity-50">
+          Next
+        </button>
+      </div>
     </div>
     <div v-else>
       Loading donations...
     </div>
   </div>
-
 </template>
+
 
 <script lang="ts" setup>
 import { ref, onMounted, computed } from 'vue'
@@ -127,6 +122,38 @@ const handleGetAllDonations = async () => {
     alert("There was an error getting donations. Please try again.");
   }
 }
+
+const currentPage = ref(1);
+const itemsPerPage = ref(10); // Puedes ajustar este valor según lo necesites
+
+const paginatedDonations = computed(() => {
+  if (!filteredDonations.value) return [];
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  const end = start + itemsPerPage.value;
+  return filteredDonations.value.slice(start, end);
+});
+
+const totalPages = computed(() => {
+  return Math.ceil(filteredDonations.value.length / itemsPerPage.value);
+});
+
+const goToPage = (page: number) => {
+  if (page >= 1 && page <= totalPages.value) {
+    currentPage.value = page;
+  }
+};
+
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+  }
+};
+
+const prevPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+  }
+};
 
 onMounted(() => {
   getRuns()
