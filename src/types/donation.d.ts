@@ -54,3 +54,14 @@ export interface BidDetailsDonationDTO {
   option_id?: string;
   option_name?: string;
 }
+
+
+export interface PaypalResponse {
+  tx: string;
+  st: string;
+  amt: string;
+  cc: string;
+  cm: string;
+  item_number: string;
+  item_name: string;
+}

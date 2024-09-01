@@ -11,7 +11,8 @@
         <RouterLink to="/prizes">Prizes</RouterLink>
       </div>
       <div>
-        <RouterLink to="/donate" class="px-2 py-1 font-bold rounded-lg bg-violet-600">DONATE</RouterLink>
+        <RouterLink to="/donate" class="px-2 py-1 font-bold rounded-lg text-white-smoke bg-violet-600">DONATE
+        </RouterLink>
       </div>
       <div>
         <RouterLink to="/bids">Bids</RouterLink>
@@ -38,6 +39,7 @@ import { onMounted, ref, watch } from 'vue';
 import { useEventStore } from '@/stores/useEventStore'
 import { storeToRefs } from 'pinia';
 
+
 const eventStore = useEventStore()
 const { selectedEvent } = storeToRefs(eventStore)
 
@@ -51,6 +53,7 @@ watch(localSelectedEvent, (newEvent) => {
 })
 
 onMounted(async () => {
+
   await eventStore.fetchEventByID(import.meta.env.VITE_EVENT_ID)
 
   // Revisar si selectedEvent ya está definido después de cargar los eventos
