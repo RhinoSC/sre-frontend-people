@@ -28,7 +28,7 @@
             class="p-2 rounded-lg hover:bg-indigo-400">
             <div class="flex justify-between">
               <span>{{ bid.bidname }}</span>
-              <span>{{ currencyFormat(bid.current_amount) }}</span>
+              <span>{{ currencyFormat(calculateBidOptionsSum(bid)) }}</span>
             </div>
             <p class="mt-1 text-sm border-t-2 text-gray-light-200">{{ bid.description }}</p>
             <ul v-if="bid.type === 'bidwar' && selectedBid === bid" class="mt-2 ml-4 overflow-y-scroll max-h-32">
@@ -136,6 +136,18 @@ const isSummaryVisible = ref(false);
 const newOptionCreated = ref(false);
 const edited = ref(false)
 const originalAmount = ref(0)
+
+function calculateBidOptionsSum(bid: Bid): number {
+  if (bid.type === 'bidwar') {
+    const sum = bid.bid_options.reduce((prev, current) => {
+      return prev + current.current_amount
+    }, 0)
+    return sum
+  } else {
+    return bid.current_amount
+  }
+}
+
 
 function calculateBidAmount(current: number, amount: number) {
   if (props.oldBidDetails) {
