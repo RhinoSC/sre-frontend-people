@@ -53,12 +53,12 @@ const handleGetEventInfo = async () => {
     const response: APIResponse<EventInfoCount> = await apiGetEventInfo()
     infoCount.value = response.data
   } catch (error) {
-    console.error("Failed to get users:", error);
-    alert("There was an error getting the user. Please try again.");
+    console.error("Failed to get event:", error);
+    // alert("There was an error getting the user. Please try again.");
   }
 }
 
-onMounted(() => {
-  handleGetEventInfo()
+onMounted(async () => {
+  await handleGetEventInfo()
 })
 </script>

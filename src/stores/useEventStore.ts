@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 import type { MyEvent } from '@/types/event'
-import { apiGetEventByID, apiGetEvents } from '@/api/event/event'
+import { apiGetEventByID } from '@/api/event/event'
 
 export const useEventStore = defineStore('event', () => {
   // Estado global

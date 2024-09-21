@@ -63,7 +63,6 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, computed } from 'vue'
-import router from '@/router';
 
 import type { APIResponse } from '@/types/api';
 import type { DonationWithoutBidDetails } from '@/types/donation';
