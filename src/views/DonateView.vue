@@ -19,68 +19,72 @@
           <div class="flex flex-wrap mb-6 -mx-3">
             <div class="w-1/2 px-3">
               <label class="block mb-2 text-base font-bold tracking-wide uppercase" for="grid-name">
-                Name
+                {{ t("name") }}
               </label>
               <Field v-model="newDonation.name" name="name"
                 class="block w-full px-4 py-3 mb-1 leading-tight border border-gray-200 rounded appearance-none dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-indigo-500"
                 id="grid-name" type="text" placeholder="Your name" />
               <ErrorMessage name="name" class="mt-1 text-xs text-red-500" />
               <transition name="fade">
-                <span v-if="!validations.name" class="text-xs text-red-500">Name is required.</span>
+                <span v-if="!validations.name" class="text-xs text-red-500">{{ t("name") }} {{ t("is") }} {{
+                  t("required") }}.</span>
               </transition>
             </div>
             <div class="w-1/2 px-3">
               <label class="block mb-2 text-base font-bold tracking-wide uppercase" for="grid-email">
-                Email
+                {{ t("email") }}
               </label>
               <Field v-model="newDonation.email" name="email"
                 class="block w-full px-4 py-3 mb-1 leading-tight border border-gray-200 rounded appearance-none dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-indigo-500"
                 id="grid-email" type="email" placeholder="Your email" />
               <ErrorMessage name="email" class="mt-1 text-xs text-red-500" />
               <transition name="fade">
-                <span v-if="!validations.email" class="text-xs text-red-500">Valid email is required.</span>
+                <span v-if="!validations.email" class="text-xs text-red-500">{{ t("valid") }} {{ t("email") }} {{
+                  t("is") }} {{ t("required") }}.</span>
               </transition>
             </div>
           </div>
           <div class="flex flex-wrap mb-6 -mx-3">
             <div class="w-1/2 px-3">
               <label class="block mb-2 text-base font-bold tracking-wide uppercase" for="grid-amount">
-                Amount
+                {{ t("amount") }}
               </label>
               <Field v-model="newDonation.amount" name="amount"
                 class="block w-full px-4 py-3 mb-1 leading-tight border border-gray-200 rounded appearance-none dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-indigo-500"
                 id="grid-amount" type="number" min="0" placeholder="Donation amount" />
               <ErrorMessage name="amount" class="mt-1 text-xs text-red-500" />
               <transition name="fade">
-                <span v-if="!validations.amount" class="text-xs text-red-500">Amount should be greater than zero.</span>
+                <span v-if="!validations.amount" class="text-xs text-red-500">{{ t("amount should be greater than zero")
+                  }}.</span>
               </transition>
             </div>
             <div class="flex items-center w-1/2 px-3">
               <div class="flex flex-row items-center justify-center gap-3 mt-7">
                 <input type="checkbox" id="checkbox" v-model="newDonation.to_bid" :disabled="disabledGoesToIncentive"
                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                <label for="checkbox"> Donation goes to an incentive?</label>
+                <label for="checkbox"> {{ t("donation goes to an incentive?") }}</label>
               </div>
             </div>
           </div>
           <div class="flex flex-wrap items-center justify-center mb-6 -mx-3">
             <div class="flex flex-col w-full px-3">
               <label class="block mb-2 text-xs font-bold tracking-wide uppercase" for="grid-first-name">
-                Description
+                {{ t("description") }}
               </label>
               <textarea v-model="newDonation.description"
                 class="block p-2.5 w-full h-24 text-sm rounded-lg border px-4 py-3 mb-1 leading-tight border-gray-200 appearance-none dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-indigo-500 resize-none"
                 placeholder="Write your thoughts here..." maxlength="300"></textarea>
               <transition name="fade">
-                <span v-if="!validations.description" class="text-xs text-red-500">Description should not exceed 300
-                  characters.</span>
+                <span v-if="!validations.description" class="text-xs text-red-500">
+                  {{ t("description should not exceed 300 characters") }}.
+                </span>
               </transition>
             </div>
           </div>
           <transition name="fade">
             <div class="flex flex-wrap items-center justify-center h-20 mb-6 -mx-10 bg-gray-light-400"
               v-if="newDonation.to_bid">
-              <h1 class="text-4xl font-bold text-center text-white-smoke">Incentive selector</h1>
+              <h1 class="text-4xl font-bold text-center text-white-smoke">{{ t("incentive selector") }}</h1>
             </div>
           </transition>
           <transition name="fade" class="">
@@ -96,14 +100,14 @@
             <button
               class="w-full px-4 py-2 text-sm text-white bg-indigo-500 border border-indigo-500 rounded hover:bg-indigo-700 active:bg-indigo-900"
               type="submit">
-              Continue
+              {{ t("continue") }}
             </button>
           </div>
         </div>
         <div class="z-20 max-w-3xl px-4 py-2 mt-[200px] rounded-lg shadow-2xl dark:bg-gray-dark-400 bg-gray-light-100"
           :class="renderPaypalBtn ? 'block' : 'hidden'">
           <div class="flex flex-col items-center justify-center gap-2">
-            <h1 class="text-4xl font-bold text-center">Click the button when you are ready to donate:</h1>
+            <h1 class="text-4xl font-bold text-center">{{ t("click the button when you are ready to donate") }}:</h1>
             <h1 class="text-4xl font-bold text-center">{{ currencyFormat(newDonation.amount) }}</h1>
             <div id="paypal-donate-button-container"></div>
           </div>
@@ -111,7 +115,7 @@
       </VForm>
       <div class="z-20 flex flex-row items-center justify-center w-full" v-else>
         <div class="max-w-3xl px-4 py-2 rounded-lg shadow-2xl">
-          <h1 class="text-4xl font-bold text-center">Thanks for your support! Keep enjoying the event!</h1>
+          <h1 class="text-4xl font-bold text-center">{{ t("thanks for your support! keep enjoying the event!") }}</h1>
         </div>
       </div>
     </div>
@@ -141,6 +145,8 @@ import { useEventStore } from '@/stores/useEventStore';
 import { storeToRefs } from 'pinia';
 import { loadCustomScript } from '@paypal/paypal-js';
 import { currencyFormat } from '@/utils/strings';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const eventStore = useEventStore()
 const { selectedEvent } = storeToRefs(eventStore)

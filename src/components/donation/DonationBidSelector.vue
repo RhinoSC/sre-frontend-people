@@ -4,7 +4,7 @@
     <transition name="fade">
       <div v-if="!isSummaryVisible" class="relative w-full mb-4">
         <label class="block mb-2 text-xs font-bold tracking-wide uppercase">Select Run</label>
-        <input v-model="searchQueryRun" type="text" placeholder="Search Run..." @focus="isFocused = true"
+        <input v-model="searchQueryRun" type="text" :placeholder="t('runs') + '...'" @focus="isFocused = true"
           @blur="handleBlur"
           class="w-full px-4 py-3 leading-tight border border-gray-200 rounded appearance-none dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-indigo-500" />
         <ul v-if="isFocused && filteredRuns.length"
@@ -59,16 +59,16 @@
               class="w-full px-4 py-2 mb-2 leading-tight border border-gray-400 rounded appearance-none dark:border-gray-200 dark:bg-gray-dark-400 bg-gray-light-300 focus:outline-none focus:border-indigo-500" />
             <transition name="fade">
               <button @click="createNewBidOption" type="button"
-                class="w-full px-4 py-2 mt-2 text-sm font-bold border border-indigo-500 rounded text-gray-dark-400 bg-gray-light-200 dark:bg-gray-dark-400 dark:text-indigo-500 dark:hover:bg-gray-dark-200 dark:active:bg-gray-light-400 hover:bg-gray-light-300 active:bg-gray-dark-100">Add
-                New Option</button>
+                class="w-full px-4 py-2 mt-2 text-sm font-bold border border-indigo-500 rounded text-gray-dark-400 bg-gray-light-200 dark:bg-gray-dark-400 dark:text-indigo-500 dark:hover:bg-gray-dark-200 dark:active:bg-gray-light-400 hover:bg-gray-light-300 active:bg-gray-dark-100">
+                {{ t("add new option") }}</button>
             </transition>
           </li>
           <!-- Eliminar opción creada -->
           <li v-if="newOptionCreated" class="flex flex-col p-2">
             <transition name="fade">
               <button @click="deleteBidOption" type="button"
-                class="w-full px-4 py-2 mt-2 text-sm text-white bg-red-600 border border-red-600 rounded hover:bg-red-700 active:bg-red-900">Delete
-                Option</button>
+                class="w-full px-4 py-2 mt-2 text-sm text-white bg-red-600 border border-red-600 rounded hover:bg-red-700 active:bg-red-900">
+                {{ t("delete option") }}</button>
             </transition>
           </li>
         </ul>
@@ -81,8 +81,8 @@
         v-if="selectedRun && selectedBid && (selectedBid.type !== 'bidwar' || selectedBidOption) && !isSummaryVisible"
         class="w-full mt-4">
         <button @click="saveSelection" type="button"
-          class="w-full px-4 py-2 text-sm text-white bg-indigo-500 border border-indigo-500 rounded hover:bg-indigo-600 active:bg-indigo-900">Save
-          Selection</button>
+          class="w-full px-4 py-2 text-sm text-white bg-indigo-500 border border-indigo-500 rounded hover:bg-indigo-600 active:bg-indigo-900">
+          {{ t("save selection") }}</button>
       </div>
     </transition>
 
@@ -104,7 +104,7 @@
         <button type="button"
           class="px-4 py-2 text-sm text-white bg-red-400 border border-red-400 rounded hover:bg-red-600 active:bg-red-900"
           @click="handleResetSelection">
-          Remove
+          {{ t("remove") }}
         </button>
       </div>
     </transition>
@@ -117,6 +117,8 @@ import type { BidDetailsDonation, BidDetailsDonationDTO } from '@/types/donation
 import type { Run } from '@/types/run';
 import { currencyFormat } from '@/utils/strings'
 import { ref, computed, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 
 const emit = defineEmits(["save-bid", "remove-bid"]);

@@ -7,19 +7,19 @@
             <thead class="dark:bg-gray-dark-300 bg-gray-light-300">
               <tr>
                 <th class="px-6 py-3">
-                  Game
+                  {{ t("game") }}
                 </th>
                 <th class="px-6 py-3">
-                  Runner/s
+                  {{ t("runners") }}
                 </th>
                 <th class="px-6 py-3">
-                  Estimate
+                  {{ t("estimate") }}
                 </th>
                 <th class="px-6 py-3">
-                  Start time
+                  {{ t("start time") }}
                 </th>
                 <th class="px-6 py-3">
-                  Bid Wars
+                  {{ t("bidwars") }}
                 </th>
               </tr>
             </thead>
@@ -27,9 +27,10 @@
               <tr v-for="row in scheduleRows" :key="row._id"
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <template v-if="isRowDay(row)">
+                  <!-- <td colspan="5" class="py-4 text-xl font-bold text-center capitalize bg-indigo-500 text-white-smoke"
+                    :draggable="!isRowDay(row)">{{ row.dayText }}</td> -->
                   <td colspan="5" class="py-4 text-xl font-bold text-center capitalize bg-indigo-500 text-white-smoke"
-                    :draggable="!isRowDay(row)">
-                    {{ row.dayText }}</td>
+                    :draggable="!isRowDay(row)">{{ getDayTextWithi18n(row.dayMili) }}</td>
                 </template>
                 <template v-else>
                   <td class="px-6 py-4">{{ row.row.name }}</td>
@@ -60,6 +61,8 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 import { uuid } from 'vue-uuid';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 import { getRunnerString, MStoStringTime } from '@/utils/strings'
 import type { ManageScheduleRow, ManageSchedule } from '@/types/schedule';
@@ -79,6 +82,16 @@ const orderedRuns = ref<Run[]>([])
 let scheduleRows = ref<ManageScheduleRow[]>([])
 let actualTimeMS: number
 
+function getDayTextWithi18n(mili: number) {
+  const selectedLanguage = localStorage.getItem('language')
+  if (selectedLanguage !== "") {
+    if (selectedLanguage === "es") {
+      return new Date(mili).toLocaleDateString('es', { dateStyle: 'full' })
+    } else {
+      return new Date(mili).toLocaleDateString('en', { dateStyle: 'full' })
+    }
+  }
+}
 
 function isRowDay(item: ManageScheduleRow) {
   if (item.dayRow) {
@@ -109,15 +122,16 @@ function setFirstRow(item: ManageScheduleRow, firstTime: boolean) {
     item.dayText = getDay(item, true)
   } else {
     item.newDay = true
+    item.dayMili = startTimeMS
     item.dayText = getDay(item, true)
-    scheduleRows.value.push({ _id: uuid.v4(), dayRow: true, start: MStoStringTime(item.row.start_time_mili), dayText: item.dayText, } as ManageScheduleRow)
+    scheduleRows.value.push({ _id: uuid.v4(), dayRow: true, start: MStoStringTime(item.row.start_time_mili), dayText: item.dayText, dayMili: item.dayMili } as ManageScheduleRow)
     scheduleRows.value.push(item)
   }
 }
 
 function addRun(item: Run, fetching: boolean) {
   item.status = "active"
-  const run: ManageScheduleRow = { _id: item.id, start: MStoStringTime(item.start_time_mili), dayRow: false, newDay: false, dayText: "", time: "", row: item }
+  const run: ManageScheduleRow = { _id: item.id, start: MStoStringTime(item.start_time_mili), dayRow: false, newDay: false, dayText: "", dayMili: startTimeMS, time: "", row: item }
 
   if (!fetching) {
     const indexAvailable = availableRuns.value.findIndex((row: Run) => row.id === item.id)
@@ -143,6 +157,7 @@ function addRun(item: Run, fetching: boolean) {
       scheduleRows.value.push({
         _id: item.id,
         dayRow: true, start: MStoStringTime(run.row.start_time_mili), dayText: run.dayText,
+        dayMili: run.row.start_time_mili,
         newDay: false,
         time: MStoStringTime(run.row.estimate_mili),
         row: {} as Run

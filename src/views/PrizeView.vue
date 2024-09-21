@@ -1,13 +1,13 @@
 <template>
-  <div class="flex flex-col items-center justify-center gap-6 p-6">
+  <div class="flex flex-col items-center justify-center gap-6 p-6 capitalize">
     <div class="">
       <div class="flex flex-col items-center justify-center gap-6">
-        <h1 class="text-4xl font-bold text-center text-indigo-500">Prizes</h1>
-        <p class="text-xl">Total prizes: {{ prizes?.length }}</p>
+        <h1 class="text-4xl font-bold text-center text-indigo-500">{{ t("prizes") }}</h1>
+        <p class="text-xl">{{ t("total") }} {{ t("prizes") }}: {{ prizes?.length }}</p>
       </div>
     </div>
     <div class="flex flex-col items-center justify-center gap-6">
-      <input v-model="searchQuery" type="text" placeholder="Search prizes..."
+      <input v-model="searchQuery" type="text" :placeholder="t('prizes') + '...'"
         class="block w-full px-4 py-3 mb-1 leading-tight border border-gray-200 rounded appearance-none dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-indigo-500" />
     </div>
     <div class="flex flex-col items-center justify-center w-full" v-if="prizes">
@@ -15,19 +15,19 @@
         <thead class="dark:bg-gray-dark-300 bg-gray-light-300">
           <tr>
             <th class="px-6 py-3">
-              Name
+              {{ t("name") }}
             </th>
             <th class="px-6 py-3">
-              Description
+              {{ t("description") }}
             </th>
             <th class="px-6 py-3">
-              Image url
+              {{ t("image url") }}
             </th>
             <th class="px-6 py-3">
-              Min amount
+              {{ t("min amount") }}
             </th>
             <th class="px-6 py-3">
-              Status
+              {{ t("status") }}
             </th>
           </tr>
         </thead>
@@ -50,17 +50,17 @@
       <div class="flex items-center justify-center mt-4 space-x-4">
         <button @click="prevPage" :disabled="currentPage === 1"
           class="px-4 py-2 text-white bg-indigo-500 rounded disabled:opacity-50">
-          Prev
+          {{ t("prev") }}
         </button>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <span>{{ t("page") }} {{ currentPage }} {{ t("of") }} {{ totalPages }}</span>
         <button @click="nextPage" :disabled="currentPage === totalPages"
           class="px-4 py-2 text-white bg-indigo-500 rounded disabled:opacity-50">
-          Next
+          {{ t("next") }}
         </button>
       </div>
     </div>
     <div v-else>
-      Loading prizes...
+      {{ t("loading prizes") }}...
     </div>
   </div>
 
@@ -74,6 +74,8 @@ import type { Prize } from '@/types/prize';
 
 import { currencyFormat } from '@/utils/strings'
 import { apiGetPrizes } from '@/api/prize/prize';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const searchQuery = ref("");
 

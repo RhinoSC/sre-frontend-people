@@ -14,12 +14,12 @@
         </RunsVisualizerComponent>
       </template>
       <template v-else>
-        <h1>Schedule editor</h1>
+        <h1>{{ t("schedule visualizer") }}</h1>
       </template>
     </div>
 
     <div v-else>
-      <p>Loading schedule...</p>
+      <p>{{ t("loading schedule") }}...</p>
     </div>
   </div>
 
