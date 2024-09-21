@@ -15,7 +15,7 @@ import Navbar from './components/navbar/Navbar.vue';
     </div>
 
     <!-- Contenido principal -->
-    <main class="flex-1 w-full p-6">
+    <main class="z-10 flex-1 w-full">
       <!-- Aquí irá el contenido de la aplicación -->
       <RouterView />
     </main>

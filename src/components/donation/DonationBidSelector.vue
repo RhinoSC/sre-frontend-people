@@ -6,7 +6,7 @@
         <label class="block mb-2 text-xs font-bold tracking-wide uppercase">Select Run</label>
         <input v-model="searchQueryRun" type="text" placeholder="Search Run..." @focus="isFocused = true"
           @blur="handleBlur"
-          class="w-full px-4 py-3 leading-tight border border-gray-200 rounded appearance-none dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-violet-600" />
+          class="w-full px-4 py-3 leading-tight border border-gray-200 rounded appearance-none dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-indigo-500" />
         <ul v-if="isFocused && filteredRuns.length"
           class="absolute left-0 z-10 w-full mt-1 overflow-y-auto border rounded-md shadow-lg dark:bg-gray-dark-300 bg-gray-light-200 max-h-60">
           <li v-for="run in filteredRuns" :key="run.id" @mousedown.prevent="selectRun(run)"
@@ -24,14 +24,14 @@
         <ul
           class="w-full px-4 py-3 leading-tight border border-gray-200 rounded-lg dark:bg-gray-dark-300 bg-gray-light-200">
           <li v-for="bid in selectedRun.bids" :key="bid.id" @click="selectBid(bid)"
-            :class="{ 'bg-violet-600 text-white': selectedBid === bid, 'cursor-pointer': selectedBid !== bid }"
-            class="p-2 rounded-lg hover:bg-violet-400">
+            :class="{ 'bg-indigo-500 text-white': selectedBid === bid, 'cursor-pointer': selectedBid !== bid }"
+            class="p-2 rounded-lg hover:bg-indigo-400">
             <div class="flex justify-between">
               <span>{{ bid.bidname }}</span>
               <span>{{ currencyFormat(bid.current_amount) }}</span>
             </div>
             <p class="mt-1 text-sm border-t-2 text-gray-light-200">{{ bid.description }}</p>
-            <ul v-if="bid.type === 'bidwar' && selectedBid === bid" class="mt-2 ml-4">
+            <ul v-if="bid.type === 'bidwar' && selectedBid === bid" class="mt-2 ml-4 overflow-y-scroll max-h-32">
               <li v-for="option in bid.bid_options" :key="option.id" class="flex justify-between text-sm">
                 <span>{{ option.name }}</span>
                 <span>{{ currencyFormat(option.current_amount) }}</span>
@@ -47,19 +47,19 @@
       <div v-if="selectedBid && selectedBid.type === 'bidwar' && !isSummaryVisible" class="w-full mb-4">
         <label class="block mb-2 text-xs font-bold tracking-wide uppercase">Select Bid Option</label>
         <ul
-          class="w-full px-4 py-3 leading-tight border border-gray-200 rounded dark:bg-gray-dark-300 bg-gray-light-200">
+          class="w-full px-4 py-3 overflow-y-scroll leading-tight border border-gray-200 rounded dark:bg-gray-dark-300 bg-gray-light-200 max-h-40">
           <li v-for="option in selectedBid.bid_options" :key="option.id" @click="selectBidOption(option)"
-            :class="{ 'bg-violet-600 text-white': selectedBidOption === option, 'cursor-pointer': selectedBidOption !== option }"
-            class="p-2 border-b-2 border-gray-400 hover:bg-violet-400">
+            :class="{ 'bg-indigo-500 text-white': selectedBidOption === option, 'cursor-pointer': selectedBidOption !== option }"
+            class="p-2 border-b-2 border-gray-400 hover:bg-indigo-400">
             {{ option.name }}
           </li>
           <!-- Crear nueva opción si se permite y no existe una opción creada -->
           <li v-if="selectedBid.create_new_options && !newOptionCreated" class="flex flex-col p-2">
             <input v-model="newBidOptionName" type="text" placeholder="New Option Name"
-              class="w-full px-4 py-2 mb-2 leading-tight border border-gray-400 rounded appearance-none dark:border-gray-200 dark:bg-gray-dark-400 bg-gray-light-300 focus:outline-none focus:border-violet-600" />
+              class="w-full px-4 py-2 mb-2 leading-tight border border-gray-400 rounded appearance-none dark:border-gray-200 dark:bg-gray-dark-400 bg-gray-light-300 focus:outline-none focus:border-indigo-500" />
             <transition name="fade">
               <button @click="createNewBidOption" type="button"
-                class="w-full px-4 py-2 mt-2 text-sm font-bold border rounded text-gray-dark-400 bg-gray-light-200 dark:bg-gray-dark-400 dark:text-violet-600 dark:hover:bg-gray-dark-200 dark:active:bg-gray-light-400 border-violet-600 hover:bg-gray-light-300 active:bg-gray-dark-100">Add
+                class="w-full px-4 py-2 mt-2 text-sm font-bold border border-indigo-500 rounded text-gray-dark-400 bg-gray-light-200 dark:bg-gray-dark-400 dark:text-indigo-500 dark:hover:bg-gray-dark-200 dark:active:bg-gray-light-400 hover:bg-gray-light-300 active:bg-gray-dark-100">Add
                 New Option</button>
             </transition>
           </li>
@@ -81,7 +81,7 @@
         v-if="selectedRun && selectedBid && (selectedBid.type !== 'bidwar' || selectedBidOption) && !isSummaryVisible"
         class="w-full mt-4">
         <button @click="saveSelection" type="button"
-          class="w-full px-4 py-2 text-sm text-white border rounded bg-violet-600 border-violet-600 hover:bg-violet-700 active:bg-violet-900">Save
+          class="w-full px-4 py-2 text-sm text-white bg-indigo-500 border border-indigo-500 rounded hover:bg-indigo-600 active:bg-indigo-900">Save
           Selection</button>
       </div>
     </transition>
@@ -102,7 +102,7 @@
               Number(amount)) }}</p>
         </div>
         <button type="button"
-          class="px-4 py-2 text-sm text-white bg-red-500 border border-red-500 rounded hover:bg-red-800 active:bg-red-900"
+          class="px-4 py-2 text-sm text-white bg-red-400 border border-red-400 rounded hover:bg-red-600 active:bg-red-900"
           @click="handleResetSelection">
           Remove
         </button>

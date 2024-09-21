@@ -1,14 +1,14 @@
 <template>
-  <div class="flex flex-col items-center justify-center gap-6">
+  <div class="flex flex-col items-center justify-center gap-6 p-6">
     <div>
       <div class="flex flex-col items-center justify-center gap-6">
-        <h1 class="text-4xl font-bold text-center text-violet-600">Donations</h1>
+        <h1 class="text-4xl font-bold text-center text-indigo-500">Donations</h1>
         <p class="text-xl">Total donations: {{ donations?.length }}</p>
       </div>
     </div>
     <div class="flex flex-col items-center justify-center gap-6">
       <input v-model="searchQuery" type="text" placeholder="Search donations..."
-        class="block w-full px-4 py-3 mb-1 leading-tight border border-gray-200 rounded appearance-none dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-violet-600" />
+        class="block w-full px-4 py-3 mb-1 leading-tight border border-gray-200 rounded appearance-none dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-indigo-500" />
     </div>
     <div class="flex flex-col items-center justify-center w-full" v-if="donations">
       <table class="w-full text-left table-auto rtl:text-right">
@@ -45,12 +45,12 @@
       <!-- Paginación -->
       <div class="flex items-center justify-center mt-4 space-x-4">
         <button @click="prevPage" :disabled="currentPage === 1"
-          class="px-4 py-2 text-white rounded bg-violet-600 disabled:opacity-50">
+          class="px-4 py-2 text-white bg-indigo-500 rounded disabled:opacity-50">
           Prev
         </button>
         <span>Page {{ currentPage }} of {{ totalPages }}</span>
         <button @click="nextPage" :disabled="currentPage === totalPages"
-          class="px-4 py-2 text-white rounded bg-violet-600 disabled:opacity-50">
+          class="px-4 py-2 text-white bg-indigo-500 rounded disabled:opacity-50">
           Next
         </button>
       </div>

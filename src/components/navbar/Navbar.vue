@@ -1,7 +1,9 @@
 <template>
   <div class="flex flex-row items-center justify-between w-full h-full gap-2">
     <div class="flex flex-row items-start justify-start w-1/3 h-full">
-      <img src="/src/assets/SRE-X_color.png" alt="" class="object-contain w-1/3 h-full">
+      <a href="/" class="w-full h-full">
+        <img src="/src/assets/SRE-X_color.png" alt="" class="object-contain w-[203px] h-full">
+      </a>
     </div>
     <div class="flex flex-row items-center justify-between flex-grow w-1/3 text-xl">
       <div>
@@ -11,7 +13,7 @@
         <RouterLink to="/prizes">Prizes</RouterLink>
       </div>
       <div>
-        <RouterLink to="/donate" class="px-2 py-1 font-bold rounded-lg text-white-smoke bg-violet-600">DONATE
+        <RouterLink to="/donate" class="px-2 py-1 font-bold bg-indigo-500 rounded-lg text-white-smoke">DONATE
         </RouterLink>
       </div>
       <div>

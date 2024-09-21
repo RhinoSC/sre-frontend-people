@@ -27,7 +27,7 @@
               <tr v-for="row in scheduleRows" :key="row._id"
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <template v-if="isRowDay(row)">
-                  <td colspan="5" class="font-bold text-center bg-violet-600 text-white-smoke"
+                  <td colspan="5" class="py-4 text-xl font-bold text-center capitalize bg-indigo-500 text-white-smoke"
                     :draggable="!isRowDay(row)">
                     {{ row.dayText }}</td>
                 </template>
@@ -45,7 +45,8 @@
                       hour12: false
                     }) }}
                   </td>
-                  <td class="px-6 py-4">{{ row.row.bids.length > 0 ? "Yes" : "No" }}</td>
+                  <td class="px-6 py-4">{{ row.row.bids !== undefined ? row.row.bids.length > 0 ? "Yes" : "No" : "No" }}
+                  </td>
                 </template>
               </tr>
             </tbody>
@@ -94,7 +95,7 @@ function getDay(item: ManageScheduleRow, firstDay: boolean) {
   else {
     newDate = new Date(item.row.start_time_mili)
   }
-  return newDate.toLocaleDateString('en-US', { dateStyle: 'medium' })
+  return newDate.toLocaleDateString('es', { dateStyle: 'full' })
 }
 
 function setFirstRow(item: ManageScheduleRow, firstTime: boolean) {

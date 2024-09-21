@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col justify-center w-full gap-2" v-if="oldSchedule">
+  <div class="flex flex-col justify-center w-full gap-2 p-6" v-if="oldSchedule">
     <div class="flex flex-col items-center">
       <div class="flex flex-col items-center justify-center gap-6">
-        <h1 class="text-4xl font-bold text-center uppercase text-violet-600">{{ t("overview") }}</h1>
+        <h1 class="text-4xl font-bold text-center text-indigo-500 uppercase">{{ t("overview") }}</h1>
       </div>
     </div>
     <div class="flex flex-col items-center w-full" v-if="newSchedule">
