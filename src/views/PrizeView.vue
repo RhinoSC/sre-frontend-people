@@ -97,7 +97,7 @@ const handleGetAllPrizes = async () => {
   try {
 
     const response: APIResponse<Prize[]> = await apiGetPrizes()
-    prizes.value = response.data
+    prizes.value = response.data.filter(prize => prize.status === "available")
 
   } catch (error) {
     console.error("Failed to get prizes:", error);
