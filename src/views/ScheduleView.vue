@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col justify-center w-full gap-2" v-if="oldSchedule">
+  <div class="flex flex-col justify-center w-full gap-2 p-6" v-if="oldSchedule">
     <div class="flex flex-col items-center">
       <div class="flex flex-col items-center justify-center gap-6">
-        <h1 class="text-4xl font-bold text-center uppercase text-violet-600">{{ t("overview") }}</h1>
+        <h1 class="text-4xl font-bold text-center text-indigo-500 uppercase">{{ t("overview") }}</h1>
       </div>
     </div>
     <div class="flex flex-col items-center w-full" v-if="newSchedule">
@@ -14,12 +14,12 @@
         </RunsVisualizerComponent>
       </template>
       <template v-else>
-        <h1>Schedule editor</h1>
+        <h1>{{ t("schedule visualizer") }}</h1>
       </template>
     </div>
 
     <div v-else>
-      <p>Loading schedule...</p>
+      <p>{{ t("loading schedule") }}...</p>
     </div>
   </div>
 
@@ -28,15 +28,12 @@
 <script lang="ts" setup>
 import RunsVisualizerComponent from '@/components/schedule/RunsVisualizer.vue'
 
-import { apiGetScheduleByID, apiUpdateSchedule } from '@/api/schedule/schedule';
+import { apiGetScheduleByID } from '@/api/schedule/schedule';
 import type { APIResponse } from '@/types/api';
 import type { ManageSchedule, Schedule } from '@/types/schedule';
 import { ref, watch, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
-import type { Run } from '@/types/run';
-import { apiUpdateScheduleRuns } from '@/api/run/run';
 import type { MyEvent } from '@/types/event';
-import { apiGetEvents } from '@/api/event/event';
 import { useEventStore } from '@/stores/useEventStore'
 import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n'
@@ -86,7 +83,8 @@ watch(setupTime, (newTime, _) => {
 
 const handleGetScheduleById = async () => {
   try {
-    const id = selectedEvent.value.schedule_id;
+    // const id = selectedEvent.value.schedule_id;
+    const id = import.meta.env.VITE_SCHEDULE_ID;
     if (!id) throw new Error("Error getting id");
 
     const response: APIResponse<Schedule> = await apiGetScheduleByID(id)
@@ -110,8 +108,8 @@ const handleGetScheduleById = async () => {
   }
 }
 
-onMounted(() => {
-  handleGetScheduleById()
+onMounted(async () => {
+  await handleGetScheduleById()
 })
 
 </script>

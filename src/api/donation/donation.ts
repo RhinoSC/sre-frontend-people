@@ -36,23 +36,3 @@ export const apiCreateDonation = async <T>(donationDTO: DonationDTO): Promise<AP
     throw new Error("Failed to create donation");
   }
 }
-
-export const apiUpdateDonation = async <T>(donation: Donation): Promise<APIResponse<T>> => {
-  try {
-    const response = await apiClient.patch(`/donations/${donation.id}`, donation)
-    const apiResponse: APIResponse = response.data
-    return apiResponse
-  } catch (error) {
-    throw new Error("Failed to create donation");
-  }
-}
-
-export const apiDeleteDonation = async <T>(id: string): Promise<APIResponse<T>> => {
-  try {
-    const response = await apiClient.delete(`/donations/${id}`)
-    const apiResponse: APIResponse = response.data
-    return apiResponse
-  } catch (error) {
-    throw new Error("Failed to delete donation");
-  }
-}

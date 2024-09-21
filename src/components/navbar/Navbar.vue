@@ -1,26 +1,30 @@
 <template>
-  <div class="flex flex-row items-center justify-between w-full h-full gap-2">
-    <div class="flex flex-row items-start justify-start w-1/3 h-full">
-      <img src="/src/assets/SRE-X_color.png" alt="" class="object-contain w-1/3 h-full">
+  <div class="flex flex-row items-center justify-between w-full h-full gap-2 capitalize">
+    <div class="flex flex-row items-start justify-start w-1/4 h-full">
+      <a href="/" class="w-full h-full">
+        <img src="/src/assets/SRE-X_color.png" alt="" class="object-contain w-[203px] h-full">
+      </a>
     </div>
-    <div class="flex flex-row items-center justify-between flex-grow w-1/3 text-xl">
-      <div>
-        <RouterLink to="/schedule">Schedule</RouterLink>
+    <div class="flex flex-row items-center w-full text-xl grow">
+      <div class="flex flex-row items-center justify-center w-1/5">
+        <RouterLink to="/schedule">{{ t("schedule") }}</RouterLink>
       </div>
-      <div>
-        <RouterLink to="/prizes">Prizes</RouterLink>
+      <div class="flex flex-row items-center justify-center w-1/5">
+        <RouterLink to="/prizes">{{ t("prizes") }}</RouterLink>
       </div>
-      <div>
-        <RouterLink to="/donate" class="px-2 py-1 font-bold rounded-lg bg-violet-600">DONATE</RouterLink>
+      <div class="flex flex-row items-center justify-center w-1/5">
+        <RouterLink to="/donate" class="px-2 py-1 font-bold uppercase bg-indigo-500 rounded-lg text-white-smoke">{{
+          t("donate") }}
+        </RouterLink>
       </div>
-      <div>
-        <RouterLink to="/bids">Bids</RouterLink>
+      <div class="flex flex-row items-center justify-center w-1/5">
+        <RouterLink to="/bids">{{ t("bids") }}</RouterLink>
       </div>
-      <div>
-        <RouterLink to="/donations">Donations</RouterLink>
+      <div class="flex flex-row items-center justify-center w-1/5">
+        <RouterLink to="/donations">{{ t("donations") }}</RouterLink>
       </div>
     </div>
-    <div class="flex justify-end w-1/3">
+    <div class="flex justify-end w-1/4">
       <div class="flex flex-row items-center justify-center">
         <h1> {{ localSelectedEvent.name }}</h1>
         <ThemeToggle />
@@ -37,6 +41,9 @@ import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
 import { onMounted, ref, watch } from 'vue';
 import { useEventStore } from '@/stores/useEventStore'
 import { storeToRefs } from 'pinia';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+
 
 const eventStore = useEventStore()
 const { selectedEvent } = storeToRefs(eventStore)
@@ -51,6 +58,7 @@ watch(localSelectedEvent, (newEvent) => {
 })
 
 onMounted(async () => {
+
   await eventStore.fetchEventByID(import.meta.env.VITE_EVENT_ID)
 
   // Revisar si selectedEvent ya está definido después de cargar los eventos
