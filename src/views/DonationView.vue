@@ -11,24 +11,22 @@
         class="block w-full px-4 py-3 mb-1 leading-tight border border-gray-200 rounded appearance-none dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-indigo-500" />
     </div>
     <div class="flex flex-col items-center justify-center w-full" v-if="donations">
-      <table class="w-full text-left table-auto rtl:text-right">
+      <table class="w-full text-left table-fixed rtl:text-right">
         <thead class="dark:bg-gray-dark-300 bg-gray-light-300">
           <tr>
-            <th class="px-6 py-3">{{ t("email") }}</th>
-            <th class="px-6 py-3">{{ t("name") }}</th>
-            <th class="px-6 py-3">{{ t("amount") }}</th>
-            <th class="px-6 py-3">{{ t("description") }}</th>
-            <th class="px-6 py-3">{{ t("to bid?") }}</th>
-            <th class="px-6 py-3">{{ t("time") }}</th>
+            <th class="w-1/6 px-6 py-3">{{ t("name") }}</th>
+            <th class="w-1/6 px-6 py-3">{{ t("amount") }}</th>
+            <th class="w-2/6 px-6 py-3">{{ t("description") }}</th>
+            <th class="w-1/6 px-6 py-3">{{ t("to bid?") }}</th>
+            <th class="w-1/6 px-6 py-3">{{ t("time") }}</th>
           </tr>
         </thead>
         <tbody>
           <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" v-for="donation in paginatedDonations"
             :key="donation.id">
-            <td class="px-6 py-4">{{ donation.email }}</td>
             <td class="px-6 py-4">{{ donation.name }}</td>
             <td class="px-6 py-4">{{ currencyFormat(donation.amount) }}</td>
-            <td class="w-1/4 px-6 py-4 break-words">{{ donation.description }}</td>
+            <td class="px-6 py-4 break-words">{{ donation.description }}</td>
             <td class="px-6 py-4">{{ donation.to_bid ? "✅" : "❌" }}</td>
             <td class="px-6 py-4">{{ new Date(donation.time_mili).toLocaleDateString('es-ES', {
               day: '2-digit',
@@ -55,6 +53,7 @@
         </button>
       </div>
     </div>
+
     <div v-else>
       {{ t("loading donations") }}..
     </div>
