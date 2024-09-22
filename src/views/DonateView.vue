@@ -215,6 +215,7 @@ const getRuns = async () => {
 
     filteredRuns.forEach(run => {
       if (run.bids) {
+        run.bids = run.bids.filter(bid => bid.status === "active")
         run.bids.forEach(bid => {
           if (bid.bid_options) {
             // Ordena las bid_options por current_amount en orden descendente
