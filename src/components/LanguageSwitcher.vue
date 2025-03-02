@@ -1,7 +1,7 @@
 <template>
   <div class="language-switcher">
     <select @change="switchLanguage($event)" :value="currentLocale"
-      class="px-4 py-1 font-sans text-sm leading-tight border border-gray-200 rounded appearance-none py-22 dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-violet-600">
+      class="px-4 py-1 font-sans text-sm leading-tight border border-gray-200 rounded appearance-none py-22 dark:bg-gray-dark-300 bg-gray-light-200 focus:outline-none focus:border-indigo-500">
       <option class="font-sans" v-for="(language, code) in languages" :key="code" :value="code">
         {{ language }}
       </option>

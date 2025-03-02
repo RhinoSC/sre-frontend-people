@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@paypal/paypal-js": "^8.1.1",
     "@types/sortablejs": "^1.15.8",
     "@vee-validate/rules": "^4.13.2",
     "@vuepic/vue-datepicker": "^9.0.2",

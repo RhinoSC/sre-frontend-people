@@ -41,6 +41,7 @@ export interface ManageScheduleRow {
   dayRow: boolean;
   newDay: boolean;
   dayText: string;
+  dayMili: number;
   time: string;
   row: Run;
 }
